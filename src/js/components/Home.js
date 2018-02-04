@@ -2,32 +2,50 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { fetchGet } from '../actions/Home';
+import Carousel from './shared/Carousel';
+import LoadingIcon from './shared/LoadingIcon';
+import NewsGrid from './shared/NewsGrid';
+
+import { fetchNewsHeadlines } from '../actions/News';
 
 class Home extends Component {
-  
+
   componentDidMount() {
-    this.props.fetchGet();
+    this.props.fetchNewsHeadlines();
   }
 
   render() {
+    const { articles, isFetching } = this.props;
     return (
-      <div>
-        { this.props.isFetching ? 'Still loading': this.props.data }
+      <div className="container second">
+        { articles.length < 1 ?
+          <div className="row my-4">
+            <LoadingIcon />
+          </div>
+          :
+          <div>
+            <div className="row my-4">
+              <Carousel articles={articles} isFetching={isFetching}/>
+            </div>
+            <div className="row">
+              <NewsGrid />
+            </div>
+          </div>
+        }
       </div>
     )
   }
 }
-const mapStateToProps = ({home}, ownProps) => {
+const mapStateToProps = ({home, news}, ownProps) => {
   return {
-    data: home.items,
-    isFetching: home.isFetching
+    articles: news.newsItems,
+    isFetching: news.isFetching
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchGet: bindActionCreators(fetchGet, dispatch)
+    fetchNewsHeadlines: bindActionCreators(fetchNewsHeadlines, dispatch)
   }
 }
 

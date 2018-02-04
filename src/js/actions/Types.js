@@ -1,3 +1,5 @@
 export const SET_HOME = 'SET_HOME';
 export const REQUEST_GET = 'REQUEST_GET';
 export const RECEIVE_GET = 'RECEIVE_GET';
+export const REQUEST_HEADLINES = "REQUEST_HEADLINES";
+export const RECEIVE_HEADLINES = "RECEIVE_HEADLINES";

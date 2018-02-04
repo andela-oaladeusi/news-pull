@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import App from './App';
+import App from './components/App';
 import Home from './components/Home';
 import NotFound from './components/NotFound';
 
