@@ -1,60 +1,53 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const Nav = () => (
-  // <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-  //   <a className="navbar-brand" href="/">News Warehouse</a>
-  //   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-  //     <span className="navbar-toggler-icon"></span>
-  //   </button>
+import CountryDropDown from './CountryDropDown';
+import SourceDropDown from './SourceDropDown';
+import CategoryList from '../../utils/categoryList';
+import Country from '../../utils/Country';
 
-  //   <div className="collapse navbar-collapse" id="navbarColor01">
-  //     <ul className="navbar-nav mr-auto">
-  //       <li className="nav-item active">
-  //         <a className="nav-link" href="/">Home <span className="sr-only">(current)</span></a>
-  //       </li>
-  //       <li className="nav-item">
-  //         <a className="nav-link" href="/">Features</a>
-  //       </li>
-  //     </ul>
-  //     <form className="form-inline my-2 my-lg-0">
-  //       <input className="form-control mr-sm-2" type="text" placeholder="Search"/>
-  //       <button className="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-  //     </form>
-  //   </div>
-  // </nav>
-
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div className="container">
-        <a className="navbar-brand" href="#">NWHouse</a>
-        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarResponsive">
-          <ul className="navbar-nav ml-auto">
-            <li className="nav-item active">
-              <a className="nav-link" href="#">Home
-                <span className="sr-only">(current)</span>
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">About</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Services</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Contact</a>
-            </li>
-            <li className="nav-item">
-              <form className="form-inline my-2 my-lg-0">
-                <input className="form-control mr-sm-2" type="text" placeholder="Search"/>
-                <button className="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-              </form>
-           </li>
-          </ul>
+class Nav extends Component {
+  render(){
+    return (
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div className="container">
+          <Link className="navbar-brand" to="/">NWHouse</Link>
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarResponsive">
+            <ul className="navbar-nav ml-auto">
+              { CategoryList.map((category, index) => (
+                <li className={category.toLowerCase() === this.props.newActiveCategory ? 'nav-item news-nav-item active' : 'nav-item news-nav-item'} key={index}>
+                  <Link className="nav-link" to={`/${category.toLowerCase()}`}>{category}
+                    <span className="sr-only">(current)</span>
+                  </Link>
+                </li>
+              ))}
+              {/*<li className="nav-item news-nav-item">
+                <form className="form-inline my-2 my-lg-0">
+                  <input className="form-control mr-sm-2" type="text" placeholder="Search..."/>
+                </form>
+              </li>*/}
+              <li className="nav-item news-nav-item">
+                <SourceDropDown />
+              </li>
+              <li className="nav-item news-nav-item">
+                <CountryDropDown setCountry={Country.getCountry()}/>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </nav>
-)
+      </nav>
+    )
+  }
+}
 
-export default Nav;
+const mapStateToProps = ({ home }) => {
+  return {
+    newActiveCategory: home.newCategory
+  }
+}
+
+export default connect(mapStateToProps, null)(Nav);

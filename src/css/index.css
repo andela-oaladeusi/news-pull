@@ -5,13 +5,16 @@ body {
   padding-top: 20px;
 }
 
-.first {
-  height: 400px;
-  width: 900px;
+.headlines-items {
+  padding-bottom: 20px;
 }
 
-.second {
-  padding-top: 10px;
+.headlines-img {
+  height: 235px;
+}
+
+.news-nav-item {
+  margin-left: 10px;
 }
 
 @media (min-width: 992px) {

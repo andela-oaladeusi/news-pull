@@ -1,19 +1,19 @@
 import React from 'react';
 
-const Carousel = ({ articles }) => {
-
-  return (
-    <div className="row my-4">
-      <div className="col-lg-8">
-        <img className="img-fluid rounded first" src={articles[1].urlToImage} alt=""/>
-      </div>
-      <div className="col-lg-4">
-        <h1>Business Name or Tagline</h1>
-        <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
-        <a className="btn btn-primary btn-lg" href="/">Call to Action!</a>
-      </div>
+const Carousel = ({ article }) => (
+  <div className="row my-4">
+    <div className="col-lg-8">
+      <img className="img-fluid rounded first" src={article.urlToImage} alt=""/>
     </div>
-  )
-}
+    <div className="col-lg-4">
+      <h3>{article.title}</h3>
+      <p>{article.description}</p>
+      <a className="btn btn-primary" target="_blank" href={article.url}>Read More...</a>
+      <p>Author: {article.author}</p>
+      <p>Published Date{article.publishedAt}</p>
+      <p>Source: {article.source.name}</p>
+    </div>
+  </div>
+)
 
 export default Carousel;

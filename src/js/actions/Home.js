@@ -1,31 +1,14 @@
-import axios from 'axios';
-import { REQUEST_GET, RECEIVE_GET } from './Types';
+import { SET_CURRENT_COUNTRY, SET_CURRENT_CATEGORY } from './Types';
 
-function requestGet(data) {
-  return {
-    type: REQUEST_GET,
-    data
-  }
+export function setNewCountry(country) {
+	return dispatch => {
+		dispatch({ type: SET_CURRENT_COUNTRY, newCountry: country });
+	}
 }
 
-function receiveGet(data) {
-  return {
-    type: RECEIVE_GET,
-    data
-  }
+export function setNewCategory(category) {
+	return dispatch => {
+		dispatch({ type: SET_CURRENT_CATEGORY, newCategory: category });
+	}
 }
-
-export function fetchGet() {
-  return function (dispatch) {
-    dispatch(requestGet('loading'));
-    return axios.get('https://andela-dms.herokuapp.com/')
-      .then(
-        response => response.data,
-        error => console.log('An error occurred.', error)
-      )
-      .then(json => dispatch(receiveGet(json.message))
-    )
-  }
-}
-
 

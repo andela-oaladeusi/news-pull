@@ -11,6 +11,7 @@ const ProjectRoutes = ({ store }) => (
       <Switch>
         <App>
           <Route exact path='/' component={Home}/>
+          <Route exact path='/:category' component={Home}/>
           <Route path="/new" component={NotFound}/>
         </App>
       </Switch>
