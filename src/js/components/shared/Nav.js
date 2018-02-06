@@ -20,7 +20,7 @@ class Nav extends Component {
             <ul className="navbar-nav ml-auto">
               { CategoryList.map((category, index) => (
                 <li className={category.toLowerCase() === this.props.newActiveCategory ? 'nav-item news-nav-item active' : 'nav-item news-nav-item'} key={index}>
-                  <Link className="nav-link" to={`/${category.toLowerCase()}`}>{category}
+                  <Link className="nav-link" to={`/category/${category.toLowerCase()}`}>{category}
                     <span className="sr-only">(current)</span>
                   </Link>
                 </li>

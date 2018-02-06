@@ -21,6 +21,18 @@ body {
   padding-top: 100px;
 }
 
+.search-container {
+  padding-top: 50px;
+}
+
+.dropdown-menu {
+   max-height:200px;
+   overflow:scroll; 
+}
+
+.search-box {
+  margin-bottom: 40px;
+}
 @media (min-width: 992px) {
   body {
     padding-top: 20px;

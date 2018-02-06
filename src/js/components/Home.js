@@ -25,7 +25,6 @@ class Home extends Component {
     if(nextCategory !== currentCategory) {
       this.props.fetchNewsHeadlines(nextCategory);
     } else if(nextCountry !== currentCountry) {
-      console.log('hello', nextCountry);
       this.props.fetchNewsHeadlines(currentCategory);
     }
   }
@@ -53,7 +52,6 @@ class Home extends Component {
   }
 }
 const mapStateToProps = ({home, news}, ownProps) => {
-  console.log(home.newCountry);
   return {
     articles: news.newsItems,
     isFetching: news.isFetching,
