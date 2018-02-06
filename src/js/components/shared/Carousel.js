@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Carousel = ({ article }) => (
   <div className="row my-4">
@@ -8,10 +9,10 @@ const Carousel = ({ article }) => (
     <div className="col-lg-4">
       <h3>{article.title}</h3>
       <p>{article.description}</p>
-      <a className="btn btn-primary" target="_blank" href={article.url}>Read More...</a>
-      <p>Author: {article.author}</p>
-      <p>Published Date{article.publishedAt}</p>
-      <p>Source: {article.source.name}</p>
+      <Link className="btn btn-primary" to={`/news/${article.url}`}>Read More...</Link>
+      <br />
+      <small className="text-muted">Published Date: {article.publishedAt}</small><br/>
+      <small className="text-muted">Source: {article.source.name}</small><br/>
     </div>
   </div>
 )

@@ -1,8 +1,9 @@
-import { REQUEST_HEADLINES, RECEIVE_HEADLINES } from '../actions/Types';
+import { REQUEST_HEADLINES, RECEIVE_HEADLINES, FETCH_SCRAPE_NEW } from '../actions/Types';
 
 const initialState = {
   isFetching: false,
-  newsItems: []
+  newsItems: [],
+  scrapeItem: {}
 }
 
 const news = (state = initialState, action) => {
@@ -15,6 +16,11 @@ const news = (state = initialState, action) => {
       return Object.assign({}, state, {
         isFetching: false,
         newsItems: action.data
+      })
+    case FETCH_SCRAPE_NEW:
+      return Object.assign({}, state, {
+        isFetching: action.isFetching,
+        scrapeItem: action.data
       })
     default:
       return state;

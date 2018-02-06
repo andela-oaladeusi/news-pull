@@ -1,17 +1,25 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import Moment from 'moment';
+import defaultImage from '../../../img/default.png';
 
 const HeadLinesGrid = ({ articles }) => {
+  console.log(Moment(articles[0].publishedAt).toString());
   return(
     <div className="row">
       {articles.map((article, index) => (
         <div className="col-lg-4 col-sm-6 headlines-items" key={index}>
           <div className="card h-100">
-            <a href={article.url} target="_blank"><img className="card-img-top headlines-img" src={article.urlToImage} alt=""/></a>
+            <Link to={`/news/${article.url}`}><img className="card-img-top headlines-img" src={article.urlToImage? article.urlToImage : defaultImage} alt=""/></Link>
             <div className="card-body">
               <h4 className="card-title">
-                <a href={article.url} target="_blank">{article.title}</a>
+                <Link to={`/news/${article.url}`}>{article.title}</Link>
               </h4>
-              <p className="card-text">{article.description}</p>
+              <p className="card-text">{article.description}...<Link to={`/news/${article.url}`}>more</Link></p>
+            </div>
+            <div className="card-footer">
+              <small className="text-muted">PublishedAt: {Moment(article.publishedAt).toString()}</small><br/>
+              <small className="text-muted">Source: {article.source.name}</small><br/>
             </div>
           </div>
         </div>

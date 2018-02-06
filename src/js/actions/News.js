@@ -23,17 +23,20 @@ function receiveHeadlines(data) {
 
 export function fetchNewsHeadlines(category) {
   const country = Country.getCountry();
-  console.log('action', country);
   let url = null;
   if(category) {
-    url = `/top-headlines?country=${country}&category=${category}`;
+    url = `/top-headlines?country=${country}&category=${category}&pageSize=100`;
   } else {
-    url = `/top-headlines?country=${country}`;
+    url = `/top-headlines?country=${country}&pageSize=100`;
   }
   return function(dispatch) {
     dispatch(requestHeadlines('loading'));
     dispatch({ type: SET_CURRENT_CATEGORY, newCategory: category })
-    return axios.get(url)
+    return axios({
+        method: 'get',
+        headers: {'X-Api-Key': '28f4078c0b944c5c8947a58651df6f1d'},
+        url
+      })
       .then(
         res => res.data,
         err => console.log('An error has occured')
@@ -42,4 +45,21 @@ export function fetchNewsHeadlines(category) {
     )
   }
 }
+
+export function scrapeNew(scrapeUrl) {
+  const url = `https://mercury.postlight.com/parser?url=${scrapeUrl}`;
+  return function(dispatch) {
+    dispatch({ type: 'FETCH_SCRAPE_NEW', data: {}, isFetching: true });
+    return axios({
+      method: 'get',
+      url,
+      headers: {'x-api-key': 't05c0F1GCEA0rIHDW8AQOIXTfTld4aIxQk2NwQuH'}
+    })
+      .then(
+        res => res.data,
+        err => console.log(' error occured ')
+        )
+      .then(json => dispatch({ type: 'FETCH_SCRAPE_NEW', data: json, isFetching: false }))
+  }
+} 
 

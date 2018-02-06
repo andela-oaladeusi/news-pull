@@ -17,6 +17,10 @@ body {
   margin-left: 10px;
 }
 
+.div-nav {
+  padding-top: 100px;
+}
+
 @media (min-width: 992px) {
   body {
     padding-top: 20px;

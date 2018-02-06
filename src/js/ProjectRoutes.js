@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import App from './components/App';
 import Home from './components/Home';
 import NotFound from './components/NotFound';
+import SingleNew from './components/SingleNew';
 
 const ProjectRoutes = ({ store }) => (
   <Provider store={store}>
@@ -12,7 +13,8 @@ const ProjectRoutes = ({ store }) => (
         <App>
           <Route exact path='/' component={Home}/>
           <Route exact path='/:category' component={Home}/>
-          <Route path="/new" component={NotFound}/>
+          <Route path="/news/:url" component={SingleNew}/>
+          <Route path="/notfound" component={NotFound}/>
         </App>
       </Switch>
     </ BrowserRouter>
