@@ -11,13 +11,12 @@ class CountryDropDown extends Component  {
       setCountry: this.props.setCountry
     }
     this.onChange = this.onChange.bind(this);
-  }
+  }  
 
   onChange(e) {
     e.preventDefault();
     this.setState({ setCountry: e.target.value });
     Country.setCountry(e.target.value);
-    console.log(e.target.value);
     this.props.setNewCountry(e.target.value);
   }
   render() {

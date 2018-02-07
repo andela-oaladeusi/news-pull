@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router'
 import Source from '../../utils/Source';
 
 class SourceDropDown extends Component  {
@@ -13,6 +14,7 @@ class SourceDropDown extends Component  {
   onChange(e) {
     e.preventDefault();
     this.setState({ setSource: e.target.value });
+    this.props.history.push(`/source/${e.target.value}`);
   }
   render() {
     return (
@@ -26,4 +28,4 @@ class SourceDropDown extends Component  {
 }
 
 
-export default SourceDropDown;
+export default withRouter(SourceDropDown);

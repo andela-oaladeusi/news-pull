@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { decodeUrl } from '../utils/decodeEncode';
-import { RECEIVE_HEADLINES, REQUEST_HEADLINES, SET_CURRENT_CATEGORY } from './Types';
+import { RECEIVE_HEADLINES, REQUEST_HEADLINES, SET_CURRENT_CATEGORY, ERROR_OCCURED } from './Types';
 
 import Country from '../utils/Country';
 
@@ -21,6 +21,10 @@ function receiveHeadlines(data) {
   }
 }
 
+/**
+ * `/everything?pageSize=50&sources=techcrunch&language=en` - get all techcrunch news
+ * 
+ */
 
 export function fetchNewsHeadlines(category) {
   const country = Country.getCountry();
@@ -42,7 +46,12 @@ export function fetchNewsHeadlines(category) {
         res => res.data,
         err => console.log('An error has occured')
       )
-      .then(json => dispatch(receiveHeadlines(json.articles))
+      .then((json) => {
+        if(!json) {
+          return dispatch({ type: ERROR_OCCURED })
+        }
+        return dispatch(receiveHeadlines(json.articles))
+      }
     )
   }
 }
@@ -62,8 +71,34 @@ export function searchNews(payload) {
         res => res.data,
         err => console.log('An error has occured')
       )
-      .then(json => dispatch(receiveHeadlines(json.articles))
-    )
+      .then((json) => {
+        if(!json) {
+          return dispatch({ type: ERROR_OCCURED })
+        }
+        return dispatch(receiveHeadlines(json.articles))
+      })
+  }
+}
+
+export function sourceNews(payload) {
+  const url = `/everything?pageSize=50&page=${payload.page}&sources=${payload.source}&language=en&sortBy=publishedAt`;
+  return function(dispatch) {
+    dispatch(requestHeadlines('loading'));
+    return axios({
+        method: 'get',
+        headers: {'X-Api-Key': '28f4078c0b944c5c8947a58651df6f1d'},
+        url
+      })
+      .then(
+        res => res.data,
+        err => console.log('An error has occured')
+      )
+      .then((json) => {
+        if(!json) {
+          return dispatch({ type: ERROR_OCCURED })
+        }
+        return dispatch(receiveHeadlines(json.articles))
+      })
   }
 }
 
@@ -81,7 +116,12 @@ export function scrapeNew(text) {
         res => res.data,
         err => console.log(' error occured ')
         )
-      .then(json => dispatch({ type: 'FETCH_SCRAPE_NEW', data: json, isFetching: false }))
+      .then((json) => {
+        if(!json) {
+          return dispatch({ type: ERROR_OCCURED })
+        } 
+        return dispatch({ type: 'FETCH_SCRAPE_NEW', data: json, isFetching: false })
+      })
   }
 } 
 

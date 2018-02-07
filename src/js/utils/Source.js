@@ -18,6 +18,7 @@ class Source {
       { name: 'Bussiness Insider UK', id: 'bussiness-insider-uk' },
       { name: 'CBC News', id: 'cbc-news' },
       { name: 'CNBC', id: 'cnbc' },
+      { name: 'CNN', id: 'cnn' },
       { name: 'Crypto Coin News', id: 'crypto-coin-news' },
       { name: 'Daily Mail', id: 'daily-mail' },
       { name: 'ESPN', id: 'espn' },

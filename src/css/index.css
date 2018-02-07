@@ -25,9 +25,17 @@ body {
   padding-top: 50px;
 }
 
+.second {
+  padding-top: 40px;
+}
+
 .dropdown-menu {
    max-height:200px;
    overflow:scroll; 
+}
+
+.carousel-img {
+  height: 75%;
 }
 
 .search-box {

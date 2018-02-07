@@ -6,7 +6,7 @@ import '../../css/newssinglepage.css';
 import { scrapeNew } from '../actions/News';
 import LoadingIcon from './shared/LoadingIcon';
 
-class SingleNew extends Component {
+class SingleNewPage extends Component {
   
   componentDidMount() {
     const url = this.props.match.params.url;
@@ -14,11 +14,11 @@ class SingleNew extends Component {
   }
   
   render() {
-    const { scrapeItem, isFetching } = this.props;
+    const { scrapeItem, isFetching, isError } = this.props;
     return (
       <div className="container single-news-page-container">
         {
-          scrapeItem.title && !isFetching ?
+          isError ? <div><p>An Error Occured</p></div> : scrapeItem.title && !isFetching ?
             <div className="row">
               <div className="col-lg-8">
                 <h1 className="mt-4">{scrapeItem.title ? scrapeItem.title : 'Post Title'}</h1>
@@ -55,8 +55,9 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = ({ news }) => {
   return {
     scrapeItem: news.scrapeItem,
-    isFetching: news.isFetching
+    isFetching: news.isFetching,
+    isError: news.isError
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SingleNew);
+export default connect(mapStateToProps, mapDispatchToProps)(SingleNewPage);

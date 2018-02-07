@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ButtonDropdown, DropdownToggle, DropdownItem, DropdownMenu } from 'reactstrap';
 import Source from '../utils/Source';
-import HeadLinesGrid from './shared/HeadLinesGrid';
+import NewsGrid from './shared/NewsGrid';
 import LoadingIcon from './shared/LoadingIcon';
 
 import { searchNews } from '../actions/News';
@@ -96,7 +96,7 @@ class SearchPage extends Component {
           :
         <div>
           <p>SEARCH RESULTS </p>
-          <HeadLinesGrid articles={articles}/>
+          <NewsGrid articles={articles}/>
         </div>
         }
       </div>

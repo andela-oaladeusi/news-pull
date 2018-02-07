@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import Carousel from './shared/Carousel';
 import LoadingIcon from './shared/LoadingIcon';
-import HeadLinesGrid from './shared/HeadLinesGrid';
+import NewsGrid from './shared/NewsGrid';
 
 import { fetchNewsHeadlines } from '../actions/News';
 
@@ -30,10 +30,10 @@ class Home extends Component {
   }
 
   render() {
-    const { articles, isFetching } = this.props;
+    const { articles, isFetching, isError } = this.props;
     return (
       <div className="container second">
-        { articles.length < 1 || isFetching ?
+        { isError ? <div><p>An Error Occured</p></div> : articles.length < 1 || isFetching ?
           <div className="row my-4">
             <LoadingIcon />
           </div>
@@ -43,7 +43,7 @@ class Home extends Component {
               <Carousel article={articles[0]} />
             </div>
             <div className="row">
-              <HeadLinesGrid articles={articles}/>
+              <NewsGrid articles={articles}/>
             </div>
           </div>
         }
@@ -55,7 +55,8 @@ const mapStateToProps = ({home, news}, ownProps) => {
   return {
     articles: news.newsItems,
     isFetching: news.isFetching,
-    newCountry: home.newCountry
+    newCountry: home.newCountry,
+    isError: news.isError
   }
 }
 

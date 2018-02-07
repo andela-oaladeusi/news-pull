@@ -4,6 +4,7 @@ import Country from '../utils/Country';
 const initialState =
   {
     newCountry: Country.getCountry(),
+    newCategory: ''
   }
 
 const home = (state = initialState, action) => {

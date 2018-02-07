@@ -5,7 +5,7 @@ import { encodeUrl } from '../../utils/decodeEncode';
 const Carousel = ({ article }) => (
   <div className="row my-4">
     <div className="col-lg-8">
-      <img className="img-fluid rounded first" src={article.urlToImage} alt=""/>
+      <img className="img-fluid rounded carousel-img" src={article.urlToImage} alt=""/>
     </div>
     <div className="col-lg-4">
       <h3>{article.title}</h3>
