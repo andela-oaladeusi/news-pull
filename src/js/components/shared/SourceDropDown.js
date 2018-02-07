@@ -14,7 +14,7 @@ class SourceDropDown extends Component  {
   onChange(e) {
     e.preventDefault();
     this.setState({ setSource: e.target.value });
-    this.props.history.push(`/source/${e.target.value}`);
+    this.props.history.push(`/source/${e.target.value}?page=1`);
   }
   render() {
     return (

@@ -5,7 +5,6 @@ import { encodeUrl } from '../../utils/decodeEncode';
 import defaultImage from '../../../img/default.png';
 
 const NewsGrid = ({ articles }) => {
-  articles.shift();
   return(
     <div className="row">
       {articles.map((article, index) => (

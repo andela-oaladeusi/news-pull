@@ -5,6 +5,7 @@ import { ButtonDropdown, DropdownToggle, DropdownItem, DropdownMenu } from 'reac
 import Source from '../utils/Source';
 import NewsGrid from './shared/NewsGrid';
 import LoadingIcon from './shared/LoadingIcon';
+import Pagination from './shared/Pagination';
 
 import { searchNews } from '../actions/News';
 
@@ -23,8 +24,11 @@ class SearchPage extends Component {
 
   
   componentDidMount() {
-    const params = new URLSearchParams(this.props.location.search);
-    const query = params.get('q');
+    const queries = new URLSearchParams(this.props.location.search);
+    let query = queries.get('q');
+    if(!query) {
+      query = '';
+    }
     this.setState({query}, () => { this.searchCall(query) })
   }
   
@@ -35,7 +39,7 @@ class SearchPage extends Component {
         type: 'everything',
         language: 'en',
         query,
-        pageSize: 50,
+        pageSize: 21,
         page: 1
       });
     }
@@ -97,6 +101,7 @@ class SearchPage extends Component {
         <div>
           <p>SEARCH RESULTS </p>
           <NewsGrid articles={articles}/>
+          <Pagination />
         </div>
         }
       </div>

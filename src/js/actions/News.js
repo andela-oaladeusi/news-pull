@@ -81,7 +81,7 @@ export function searchNews(payload) {
 }
 
 export function sourceNews(payload) {
-  const url = `/everything?pageSize=50&page=${payload.page}&sources=${payload.source}&language=en&sortBy=publishedAt`;
+  const url = `/everything?pageSize=21&page=${payload.page}&sources=${payload.source}&language=en&sortBy=publishedAt`;
   return function(dispatch) {
     dispatch(requestHeadlines('loading'));
     return axios({

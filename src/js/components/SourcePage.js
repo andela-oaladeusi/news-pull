@@ -4,19 +4,40 @@ import { bindActionCreators } from 'redux';
 import { sourceNews } from '../actions/News';
 import NewsGrid from './shared/NewsGrid';
 import LoadingIcon from './shared/LoadingIcon';
+import Pagination from './shared/Pagination';
 
 class SourcePage extends Component {
   constructor(props) {
     super(props);
     this.source = props.match.params.source;
-    props.sourceNews({ source: this.source, page: 1 });
+  }
+
+  componentDidMount() {
+    const currentQueries = new URLSearchParams(this.props.location.search);
+    const currentPage = parseInt(currentQueries.get('page'), 10);
+    if(currentPage) {
+      this.props.sourceNews({ source: this.source, page: currentPage });
+    } else {
+      this.props.sourceNews({ source: this.source, page: 1 });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     const nextSource = nextProps.match.params.source;
     const currentSource = this.props.match.params.source;
 
+    const currentQueries = new URLSearchParams(this.props.location.search);
+    const currentPage = parseInt(currentQueries.get('page'), 10);
+
+    const nextQueries = new URLSearchParams(nextProps.location.search);
+    const nextPage = parseInt(nextQueries.get('page'), 10);
+
+    if(nextPage && currentPage && currentPage !== nextPage) {
+      this.props.sourceNews({ source: nextSource, page: nextPage });
+    }
+
     if(nextSource !== currentSource) {
+      this.source = nextSource;
       this.props.sourceNews({ source: nextSource, page: 1 });
     }
   }
@@ -33,6 +54,7 @@ class SourcePage extends Component {
       <div>
         <p>{this.source.toUpperCase()}</p>
         <NewsGrid articles={articles}/>
+        <Pagination />
       </div>
       }
     </div>
