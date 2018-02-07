@@ -21,7 +21,6 @@ class Source {
       { name: 'CNN', id: 'cnn' },
       { name: 'Crypto Coin News', id: 'crypto-coin-news' },
       { name: 'Daily Mail', id: 'daily-mail' },
-      { name: 'ESPN', id: 'espn' },
       { name: 'Focus', id: 'focus' },
       { name: 'Fortune', id: 'fortune' },
       { name: 'Fox News', id: 'fox-news' },
