@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import queryString from 'query-string';
 import { ButtonDropdown, DropdownToggle, DropdownItem, DropdownMenu } from 'reactstrap';
 import Source from '../utils/Source';
 import NewsGrid from './shared/NewsGrid';
@@ -17,6 +18,7 @@ class SearchPage extends Component {
       dropdownOpen: false,
       show: false
     }
+    this.queryObj = this.getQueryObj(props.location.search);
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.toggle = this.toggle.bind(this);
@@ -24,38 +26,68 @@ class SearchPage extends Component {
 
   
   componentDidMount() {
-    const queries = new URLSearchParams(this.props.location.search);
-    let query = queries.get('q');
-    if(!query) {
-      query = '';
+    let currentQ = this.getQueryObj(this.props.location.search).q;
+    if(currentQ && currentQ.trim().length !== 0) {
+    const currentPage = this.getQueryObj(this.props.location.search).page || 1;
+    this.setState({ query: currentQ }, () => { this.searchCall(currentPage) })
     }
-    this.setState({query}, () => { this.searchCall(query) })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const currentPage = parseInt(this.getQueryObj(this.props.location.search).page, 10) || 1;
+    const currentQ = this.getQueryObj(this.props.location.search).q;
+
+    const nextPage = parseInt(this.getQueryObj(nextProps.location.search).page, 10) || currentPage;
+    const nextQ = this.getQueryObj(nextProps.location.search).q;
+
+    if(nextPage !== currentPage && nextQ !== currentQ) {
+      this.searchCall(nextPage);
+    } else if(nextQ !== currentQ) {
+      this.searchCall(nextPage);
+    }
+     else if(nextPage !== currentPage) {
+      this.searchCall(nextPage);
+    }
+  }
+
+  getQueryObj(search) {
+    return queryString.parse(search);
+  }
+
+  setNewLinkWithQValue(page) {
+    this.queryObj['q'] = this.state.query;
+    this.queryObj['page'] = page;
+    const newQueryString = queryString.stringify(this.queryObj);
+    const { pathname } = this.props.location;
+    return `${pathname}?${newQueryString}`;
   }
   
-  searchCall(query) {
-    if(query) {
-      this.setState({ show: true })
+  searchCall(page=1) {
+    if(this.state.query.trim().length !== 0) {
+      this.setState({ show: true });
       this.props.searchNews({
         type: 'everything',
         language: 'en',
-        query,
+        query: this.state.query,
         pageSize: 21,
-        page: 1
+        page
       });
     }
   }
 
+
+
   onChange(e) {
-    this.setState({query: e.target.value}, () => {
-      this.props.history.push(`/search/?q=${this.state.query}`);
-      this.searchCall(this.state.query);
-    })
+    this.setState({ query: e.target.value }, () => {
+      this.props.history.push(this.setNewLinkWithQValue(1));
+    });
   }
 
   onSubmit(e) {
     e.preventDefault();
-    this.props.history.push(`/search/?q=${this.state.query}`);
-    this.searchCall(this.state.query);
+    this.setState({ query: e.target.value }, () => {
+      this.props.history.push(this.setNewLinkWithQValue(1));
+    });
   }
 
   toggle() {

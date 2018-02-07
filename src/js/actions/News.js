@@ -1,30 +1,25 @@
 import axios from 'axios';
 import { decodeUrl } from '../utils/decodeEncode';
-import { RECEIVE_HEADLINES, REQUEST_HEADLINES, SET_CURRENT_CATEGORY, ERROR_OCCURED } from './Types';
+import { RECEIVE_NEWS, REQUEST_NEWS, SET_CURRENT_CATEGORY, ERROR_OCCURED } from './Types';
 
 import Country from '../utils/Country';
 
 
-function requestHeadlines(status) {
+function requestNews(status) {
   return {
-    type: REQUEST_HEADLINES,
+    type: REQUEST_NEWS,
     isFetching: true,
     status
   }
 }
 
-function receiveHeadlines(data) {
+function receiveNews(data) {
   return {
-    type: RECEIVE_HEADLINES,
+    type: RECEIVE_NEWS,
     isFetching: false,
     data
   }
 }
-
-/**
- * `/everything?pageSize=50&sources=techcrunch&language=en` - get all techcrunch news
- * 
- */
 
 export function fetchNewsHeadlines(category) {
   const country = Country.getCountry();
@@ -35,7 +30,7 @@ export function fetchNewsHeadlines(category) {
     url = `/top-headlines?country=${country}&pageSize=100`;
   }
   return function(dispatch) {
-    dispatch(requestHeadlines('loading'));
+    dispatch(requestNews('loading'));
     dispatch({ type: SET_CURRENT_CATEGORY, newCategory: category })
     return axios({
         method: 'get',
@@ -50,7 +45,7 @@ export function fetchNewsHeadlines(category) {
         if(!json) {
           return dispatch({ type: ERROR_OCCURED })
         }
-        return dispatch(receiveHeadlines(json.articles))
+        return dispatch(receiveNews(json.articles))
       }
     )
   }
@@ -58,9 +53,9 @@ export function fetchNewsHeadlines(category) {
 
 
 export function searchNews(payload) {
-  const url = `/${payload.type}?language=${payload.language}&q=${payload.query}&pageSize=${payload.pageSize}&${payload.page}&sortBy=publishedAt`;
+  const url = `/${payload.type}?language=${payload.language}&q=${payload.query}&pageSize=${payload.pageSize}&page=${payload.page}&sortBy=publishedAt,relevancy`;
   return function(dispatch) {
-    dispatch(requestHeadlines('loading'));
+    dispatch(requestNews('loading'));
     dispatch({ type: SET_CURRENT_CATEGORY, newCategory: '' })
     return axios({
         method: 'get',
@@ -75,7 +70,7 @@ export function searchNews(payload) {
         if(!json) {
           return dispatch({ type: ERROR_OCCURED })
         }
-        return dispatch(receiveHeadlines(json.articles))
+        return dispatch(receiveNews(json.articles))
       })
   }
 }
@@ -83,7 +78,7 @@ export function searchNews(payload) {
 export function sourceNews(payload) {
   const url = `/everything?pageSize=21&page=${payload.page}&sources=${payload.source}&language=en&sortBy=publishedAt`;
   return function(dispatch) {
-    dispatch(requestHeadlines('loading'));
+    dispatch(requestNews('loading'));
     return axios({
         method: 'get',
         headers: {'X-Api-Key': '28f4078c0b944c5c8947a58651df6f1d'},
@@ -97,7 +92,7 @@ export function sourceNews(payload) {
         if(!json) {
           return dispatch({ type: ERROR_OCCURED })
         }
-        return dispatch(receiveHeadlines(json.articles))
+        return dispatch(receiveNews(json.articles))
       })
   }
 }

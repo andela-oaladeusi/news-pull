@@ -1,4 +1,4 @@
-import { REQUEST_HEADLINES, RECEIVE_HEADLINES, FETCH_SCRAPE_NEW, ERROR_OCCURED } from '../actions/Types';
+import { REQUEST_NEWS, RECEIVE_NEWS, FETCH_SCRAPE_NEW, ERROR_OCCURED } from '../actions/Types';
 
 const initialState = {
   isFetching: false,
@@ -9,11 +9,11 @@ const initialState = {
 
 const news = (state = initialState, action) => {
   switch(action.type) {
-    case REQUEST_HEADLINES:
+    case REQUEST_NEWS:
       return Object.assign({}, state, {
         isFetching: true,
       });
-    case RECEIVE_HEADLINES:
+    case RECEIVE_NEWS:
       return Object.assign({}, state, {
         isFetching: false,
         newsItems: action.data
