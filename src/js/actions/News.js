@@ -25,16 +25,15 @@ export function fetchNewsHeadlines(category) {
   const country = Country.getCountry();
   let url = null;
   if(category) {
-    url = `/top-headlines?country=${country}&category=${category}&pageSize=100`;
+    url = `/api/v1/news/headlines/?country=${country}&category=${category}&pageSize=100`;
   } else {
-    url = `/top-headlines?country=${country}&pageSize=100`;
+    url = `/api/v1/news/headlines/?country=${country}&pageSize=100`;
   }
   return function(dispatch) {
     dispatch(requestNews('loading'));
     dispatch({ type: SET_CURRENT_CATEGORY, newCategory: category })
     return axios({
         method: 'get',
-        headers: {'X-Api-Key': '28f4078c0b944c5c8947a58651df6f1d'},
         url
       })
       .then(
@@ -53,13 +52,12 @@ export function fetchNewsHeadlines(category) {
 
 
 export function searchNews(payload) {
-  const url = `/${payload.type}?language=${payload.language}&q=${payload.query}&pageSize=${payload.pageSize}&page=${payload.page}&sortBy=publishedAt,relevancy`;
+  const url = `/api/v1/news/${payload.type}/search?language=${payload.language}&q=${payload.query}&pageSize=${payload.pageSize}&page=${payload.page}&sortBy=publishedAt,relevancy`;
   return function(dispatch) {
     dispatch(requestNews('loading'));
     dispatch({ type: SET_CURRENT_CATEGORY, newCategory: '' })
     return axios({
         method: 'get',
-        headers: {'X-Api-Key': '28f4078c0b944c5c8947a58651df6f1d'},
         url
       })
       .then(
@@ -76,12 +74,11 @@ export function searchNews(payload) {
 }
 
 export function sourceNews(payload) {
-  const url = `/everything?pageSize=21&page=${payload.page}&sources=${payload.source}&language=en&sortBy=publishedAt`;
+  const url = `/api/v1/news/sources/${payload.source}?pageSize=21&page=${payload.page}&sources=${payload.source}&language=en&sortBy=publishedAt`;
   return function(dispatch) {
     dispatch(requestNews('loading'));
     return axios({
         method: 'get',
-        headers: {'X-Api-Key': '28f4078c0b944c5c8947a58651df6f1d'},
         url
       })
       .then(
@@ -97,15 +94,13 @@ export function sourceNews(payload) {
   }
 }
 
-export function scrapeNew(text) {
-  const scrapeUrl = decodeUrl(text);
-  const url = `https://mercury.postlight.com/parser?url=${scrapeUrl}`;
+export function scrapeNew(urlId) {
+  const url = `/api/v1/news/single/${urlId}`;
   return function(dispatch) {
     dispatch({ type: 'FETCH_SCRAPE_NEW', data: {}, isFetching: true });
     return axios({
       method: 'get',
       url,
-      headers: {'x-api-key': 't05c0F1GCEA0rIHDW8AQOIXTfTld4aIxQk2NwQuH'}
     })
       .then(
         res => res.data,

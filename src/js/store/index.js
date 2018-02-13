@@ -10,6 +10,7 @@ const storeConfig = () =>
     compose(
       applyMiddleware(
         thunkMiddleware,
+        loggerMiddleware,
       ),
       window.devToolsExtension ? window.devToolsExtension() : f => f
     )
