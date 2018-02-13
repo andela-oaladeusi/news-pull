@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router'
-import Source from '../../utils/Source';
+import { withRouter } from 'react-router';
+
+import { Source } from '../../utils';
 
 class SourceDropDown extends Component  {
   constructor(props) {

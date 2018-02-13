@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Moment from 'moment';
-import { encodeUrl } from '../../utils/decodeEncode';
+
+import { encodeUrl } from '../../utils';
 import defaultImage from '../../../img/default.png';
 
 const NewsGrid = ({ articles }) => {

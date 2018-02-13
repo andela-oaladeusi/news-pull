@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import queryString from 'query-string';
-import { sourceNews } from '../actions/News';
-import NewsGrid from './shared/NewsGrid';
-import LoadingIcon from './shared/LoadingIcon';
-import Pagination from './shared/Pagination';
+
+import { sourceNews } from '../actions';
+import { NewsGrid, LoadingIcon, Pagination } from './shared';
 
 class SourcePage extends Component {
   constructor(props) {

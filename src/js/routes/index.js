@@ -1,12 +1,15 @@
 import React from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import App from './components/App';
-import Home from './components/Home';
-import NotFound from './components/NotFound';
-import SingleNewPage from './components/SingleNewPage';
-import SearchPage from './components/SearchPage';
-import SourcePage from './components/SourcePage';
+
+import {
+  App,
+  Home,
+  NotFound,
+  SingleNewPage,
+  SearchPage,
+  SourcePage
+} from '../components';
 
 const ProjectRoutes = ({ store }) => (
   <Provider store={store}>

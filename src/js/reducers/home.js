@@ -1,5 +1,5 @@
 import { SET_CURRENT_COUNTRY, SET_CURRENT_CATEGORY } from '../actions/Types';
-import Country from '../utils/Country';
+import { Country } from '../utils';
 
 const initialState =
   {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
-import Nav from './shared/Nav';
-import Footer from './shared/Footer';
+import { Nav, Footer } from './shared';
 
 class App extends Component {
   render() {

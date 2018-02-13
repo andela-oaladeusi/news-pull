@@ -1,8 +1,7 @@
 import axios from 'axios';
-import { decodeUrl } from '../utils/decodeEncode';
-import { RECEIVE_NEWS, REQUEST_NEWS, SET_CURRENT_CATEGORY, ERROR_OCCURED } from './Types';
 
-import Country from '../utils/Country';
+import { RECEIVE_NEWS, REQUEST_NEWS, SET_CURRENT_CATEGORY, ERROR_OCCURED } from './Types';
+import { Country } from '../utils';
 
 
 function requestNews(status) {

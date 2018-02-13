@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { encodeUrl } from '../../utils/decodeEncode';
+
+import { encodeUrl } from '../../utils';
 
 const Carousel = ({ article }) => (
   <div className="row my-4">

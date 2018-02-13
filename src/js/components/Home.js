@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Carousel from './shared/Carousel';
-import LoadingIcon from './shared/LoadingIcon';
-import NewsGrid from './shared/NewsGrid';
-
-import { fetchNewsHeadlines } from '../actions/News';
+import { Carousel, LoadingIcon, NewsGrid } from './shared';
+import { fetchNewsHeadlines } from '../actions';
 
 class Home extends Component {
 

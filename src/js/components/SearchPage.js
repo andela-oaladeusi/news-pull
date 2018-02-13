@@ -3,12 +3,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import queryString from 'query-string';
 import { ButtonDropdown, DropdownToggle, DropdownItem, DropdownMenu } from 'reactstrap';
-import Source from '../utils/Source';
-import NewsGrid from './shared/NewsGrid';
-import LoadingIcon from './shared/LoadingIcon';
-import Pagination from './shared/Pagination';
 
-import { searchNews } from '../actions/News';
+import { Source } from '../utils';
+import { NewsGrid, LoadingIcon, Pagination } from './shared';
+
+import { searchNews } from '../actions';
 
 class SearchPage extends Component {
   constructor(props) {

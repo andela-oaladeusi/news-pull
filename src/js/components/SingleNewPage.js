@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
 import '../../css/newssinglepage.css';
-import { scrapeNew } from '../actions/News';
-import LoadingIcon from './shared/LoadingIcon';
+import { scrapeNew } from '../actions';
+import { LoadingIcon } from './shared';
 
 class SingleNewPage extends Component {
   

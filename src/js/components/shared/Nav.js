@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import CountryDropDown from './CountryDropDown';
-import SourceDropDown from './SourceDropDown';
-import CategoryList from '../../utils/categoryList';
-import Country from '../../utils/Country';
+import { CountryDropDown, SourceDropDown } from './';
+import { Country, categoryList } from '../../utils';
 
 class Nav extends Component {
   render(){
@@ -18,7 +16,7 @@ class Nav extends Component {
           </button>
           <div className="collapse navbar-collapse" id="navbarResponsive">
             <ul className="navbar-nav ml-auto">
-              { CategoryList.map((category, index) => (
+              { categoryList.map((category, index) => (
                 <li className={category.toLowerCase() === this.props.newActiveCategory ? 'nav-item news-nav-item active' : 'nav-item news-nav-item'} key={index}>
                   <Link className="nav-link" to={`/category/${category.toLowerCase()}`}>{category}
                     <span className="sr-only">(current)</span>

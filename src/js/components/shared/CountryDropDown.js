@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Country from '../../utils/Country';
-import { setNewCountry } from '../../actions/Home';
+
+import { Country } from '../../utils';
+import { setNewCountry } from '../../actions';
 
 class CountryDropDown extends Component  {
   constructor(props) {
