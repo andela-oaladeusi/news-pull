@@ -1,4 +1,4 @@
-import { fetchNewsHeadlines, scrapeNew, searchNews, sourceNews } from './News';
+import { fetchNewsHeadlines, scrapeNew, searchNews, sourceNews, searchNewsPopOver } from './News';
 import { setNewCategory, setNewCountry } from './Home';
 
 export {
@@ -7,5 +7,6 @@ export {
   searchNews,
   sourceNews,
   setNewCategory,
-  setNewCountry
+  setNewCountry,
+  searchNewsPopOver
 }

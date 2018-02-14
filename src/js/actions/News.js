@@ -73,6 +73,26 @@ export function searchNews(payload) {
   }
 }
 
+export function searchNewsPopOver(payload) {
+  const url = `/api/v1/news/${payload.type}/search?language=${payload.language}&q=${payload.query}&pageSize=${payload.pageSize}&page=${payload.page}&sortBy=publishedAt`;
+  return function(dispatch) {
+    return axios({
+        method: 'get',
+        url
+      })
+      .then(
+        res => res.data,
+        err => console.log('An error has occured')
+      )
+      .then((json) => {
+        if(!json) {
+          return dispatch({ type: ERROR_OCCURED })
+        }
+        return dispatch({ type: 'RECEIVE_POPOVER', data: json });
+      })
+  }
+}
+
 export function sourceNews(payload) {
   const { page, filterBy, q } = payload;
   let url = `/api/v1/news/sources?pageSize=21&language=en&sortBy=publishedAt&page=${page}`;

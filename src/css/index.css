@@ -30,8 +30,13 @@ body {
 }
 
 .dropdown-menu {
-   max-height:200px;
-   overflow:scroll; 
+   max-height: 200px;
+   overflow: scroll;
+}
+
+.list-group {
+  max-height: 300px;
+  overflow: scroll;
 }
 
 .carousel-img {

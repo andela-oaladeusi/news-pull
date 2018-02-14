@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link, withRouter } from 'react-router-dom';
 import { Popover, PopoverHeader, PopoverBody } from 'reactstrap';
 
-import { searchNews } from '../../actions';
+import { searchNewsPopOver } from '../../actions';
+import { encodeUrl } from '../../utils';
 
 class SearchPopOver extends Component{
   constructor(props) {
@@ -14,12 +16,13 @@ class SearchPopOver extends Component{
     }
     this.onChange = this.onChange.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.onClickViewMore = this.onClickViewMore.bind(this);
   }
 
   onChange(e) {
     e.preventDefault();
     this.setState({
-      popoverOpen: false,
+      popoverOpen: true,
       searchQuery: e.target.value
     }, () => {
       this.makeSearch()
@@ -27,43 +30,55 @@ class SearchPopOver extends Component{
   }
 
   makeSearch() {
-    const payload = { 
-      query: this.state.searchQuery,
-      type: 'everything',
-      pageSize: 21,
-      page: 1,
-      language: 'en'
+    if(this.state.searchQuery.trim() !== '') {
+      const payload = { 
+        query: this.state.searchQuery.trim(),
+        type: 'everything',
+        pageSize: 40,
+        page: 1,
+        language: 'en',
+      }
+      this.props.searchNewsPopOver(payload);
     }
-    this.props.searchNews(payload);
   }
 
   toggle() {
     this.setState({
-      popoverOpen: false
+      popoverOpen: !this.state.popoverOpen
     });
   }
 
+  onClickViewMore() {
+    this.props.history.push(`/sources?q=${this.state.searchQuery}&page=1`);
+    this.setState({ popoverOpen: !this.state.popoverOpen });
+  }
+
   render() {
+    const { articles } = this.props;
     return (
       [
         <form className="form-inline my-2 my-lg-0" key="1">
           <input id="SearchPopover" className="form-control mr-sm-2" onClick={this.toggle} onChange={this.onChange} type="text" placeholder="Search..." value={this.state.searchQuery}/>
         </form>,
         <div key="2">
-          <Popover placement="bottom" isOpen={this.state.popoverOpen} target="SearchPopover" toggle={this.toggle} >
-            <PopoverHeader>{`Search Results for ${this.state.searchQuery}`}</PopoverHeader>
-            <PopoverBody>
-              <div className="list-group">
-                <div className="list-group-item list-group-item-action flex-column align-items-start">
-                  <div className="d-flex justify-content-between">
-                    <p className="mb-1">{this.props.articles.length > 2 ? this.props.articles[0].title : 'no article yet'}</p>
-                    <small>3 days ago</small>
-                  </div>
-                  <small><a href="/" >read more...</a></small>
-                </div>
-              </div>
-            </PopoverBody>
-          </Popover>
+          { articles && articles.length > 2 ?
+            <Popover placement="bottom" isOpen={this.state.searchQuery.trim() === '' ? false : this.state.popoverOpen} target="SearchPopover" toggle={this.toggle}>
+              <PopoverHeader>{`Search Results for ${this.state.searchQuery}`}</PopoverHeader>
+              <PopoverBody>
+                <ul className="list-group list-group-flush">
+                  { articles.map((article, index) => (
+                    <li key={index} className="list-group-item">
+                      <p>{article.title} ...<Link to={`/news/${encodeUrl(article.url)}`}>Read more</Link></p>
+                      <small>{`Source: ${article.source.name}`}</small>
+                    </li>))
+                  }
+                </ul>
+                <button className="btn btn-outline-secondary btn-block" onClick={this.onClickViewMore}>View More Result</button>
+              </PopoverBody>
+            </Popover>
+          :
+          null
+        }
       </div>
       ]
     )
@@ -73,15 +88,14 @@ class SearchPopOver extends Component{
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    searchNews: bindActionCreators(searchNews, dispatch)
+    searchNewsPopOver: bindActionCreators(searchNewsPopOver, dispatch)
   }
 }
 
 const mapStateToProps = ({ news }) => {
   return {
-    articles: news.newsItems,
-    isFetching: news.isFetching
+    articles: news.newsPopOver,
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchPopOver);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SearchPopOver));

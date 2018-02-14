@@ -24,6 +24,10 @@ const news = (state = initialState, action) => {
         isFetching: action.isFetching,
         scrapeItem: action.data
       })
+    case 'RECEIVE_POPOVER':
+      return Object.assign({}, state, {
+        newsPopOver: action.data.articles
+      })
     case ERROR_OCCURED:
       return Object.assign({}, state, {
         isError: true

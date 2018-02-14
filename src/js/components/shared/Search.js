@@ -32,6 +32,14 @@ class Search extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    const nextQ = this.getQueryObj(nextProps.location.search).q;
+    const currentQ = this.getQueryObj(this.props.location.search).q
+    if(currentQ !== nextQ) {
+      this.setState({query: nextQ});
+    }
+  }
+
   getQueryObj(search) {
     return queryString.parse(search);
   }
