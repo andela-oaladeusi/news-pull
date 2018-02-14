@@ -6,7 +6,7 @@ import queryString from 'query-string';
 class Pagination extends Component {
   constructor(props) {
     super(props);
-    this.state = { page: 1 };
+    this.state = { page: 1, pagArray: [] };
     this.queryObj = this.getQueryObj(this.props.location.search);
     this.setNewLinkWithPageValue = this.setNewLinkWithPageValue.bind(this);
   }
@@ -17,9 +17,23 @@ class Pagination extends Component {
     if(page) {
       this.setState({ page });
     }
+    this.setState({ pagArray: this.paginationCount(this.props) });
   }
 
   componentWillReceiveProps(nextProps) {
+    const currentTotalCount = this.props.totalCount;
+    const nextTotalCount = nextProps.totalCount;
+    const nextPageSize = nextProps.pageSize;
+    const currentPageSize = this.props.pageSize;
+
+    if(currentTotalCount !==  nextTotalCount) {
+      this.setState({ pagArray: this.paginationCount(nextProps) })
+    }
+
+    if(currentPageSize !== nextPageSize) {
+      this.setState({ pagArray: this.paginationCount(nextProps) })
+    }
+
     const nextQueryObj = this.getQueryObj(nextProps.location.search);
     const page = parseInt(nextQueryObj.page, 10);
     if(page && page !== this.state.page) {
@@ -39,7 +53,18 @@ class Pagination extends Component {
     return `${pathname}?${newQueryString}`;
   }
 
+  paginationCount(value) {
+    let pagArray = [];
+    const { totalCount, pageSize } = value;
+    const count = Math.round(totalCount/pageSize);
+    for (let i = 1; i <= count; i++) {
+      pagArray.push(i);
+    }
+    return pagArray;
+  }
+
   render() {
+    console.log(this.state.pagArray);
     const pages = [1, 2, 3, 4, 5];
     return (
       <div className="row row align-items-center justify-content-center">
@@ -48,7 +73,7 @@ class Pagination extends Component {
             <li className={this.state.page > 1 ? "page-item" : "page-item disabled"}>
               <Link className="page-link" to={this.setNewLinkWithPageValue(this.state.page-1)} tabIndex="-1">Previous</Link>
             </li>
-            { pages.map((page, index) => (
+            { this.state.pagArray.map((page, index) => (
               <li className={ page === this.state.page ? "page-item active" : "page-item"} key={index}>
                 <Link className="page-link" to={this.setNewLinkWithPageValue(page)}>{page}<span className="sr-only">(current)</span></Link>
               </li>

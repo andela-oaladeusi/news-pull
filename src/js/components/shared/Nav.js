@@ -29,8 +29,13 @@ class Nav extends Component {
                 </form>
               </li>*/}
               <li className="nav-item news-nav-item">
-                <SourceDropDown />
+                <Link className="nav-link" to={'/sources'}>All
+                  <span className="sr-only">(current)</span>
+                </Link>
               </li>
+              {/*<li className="nav-item news-nav-item">
+                <SourceDropDown />
+              </li>*/}
               <li className="nav-item news-nav-item">
                 <CountryDropDown setCountry={Country.getCountry()}/>
               </li>

@@ -16,7 +16,8 @@ const news = (state = initialState, action) => {
     case RECEIVE_NEWS:
       return Object.assign({}, state, {
         isFetching: false,
-        newsItems: action.data
+        newsItems: action.data,
+        itemsCount: action.totalCount
       })
     case FETCH_SCRAPE_NEW:
       return Object.assign({}, state, {

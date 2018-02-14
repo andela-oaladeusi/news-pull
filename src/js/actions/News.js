@@ -12,11 +12,12 @@ function requestNews(status) {
   }
 }
 
-function receiveNews(data) {
+function receiveNews(result) {
   return {
     type: RECEIVE_NEWS,
     isFetching: false,
-    data
+    data: result.articles,
+    totalCount: result.totalResults
   }
 }
 
@@ -43,7 +44,7 @@ export function fetchNewsHeadlines(category) {
         if(!json) {
           return dispatch({ type: ERROR_OCCURED })
         }
-        return dispatch(receiveNews(json.articles))
+        return dispatch(receiveNews(json))
       }
     )
   }
@@ -67,13 +68,20 @@ export function searchNews(payload) {
         if(!json) {
           return dispatch({ type: ERROR_OCCURED })
         }
-        return dispatch(receiveNews(json.articles))
+        return dispatch(receiveNews(json))
       })
   }
 }
 
 export function sourceNews(payload) {
-  const url = `/api/v1/news/sources/${payload.source}?pageSize=21&page=${payload.page}&sources=${payload.source}&language=en&sortBy=publishedAt`;
+  const { page, filterBy, q } = payload;
+  let url = `/api/v1/news/sources?pageSize=21&language=en&sortBy=publishedAt&page=${page}`;
+  if(filterBy && filterBy !== 'all') {
+    url = `${url}&sources=${filterBy}`;
+  }
+  if(q) {
+    url = `${url}&q=${q}`;
+  }
   return function(dispatch) {
     dispatch(requestNews('loading'));
     return axios({
@@ -88,7 +96,8 @@ export function sourceNews(payload) {
         if(!json) {
           return dispatch({ type: ERROR_OCCURED })
         }
-        return dispatch(receiveNews(json.articles))
+
+        return dispatch(receiveNews(json))
       })
   }
 }

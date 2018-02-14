@@ -59,8 +59,13 @@ class FetchNews {
     const sortBy = req.query.sortBy || 'publishedAt';
     const source = req.query.sources;
     const language = req.query.language || 'en';
+    const q = req.query.q;
 
-    const url = `${config.NEWS_API_BASE_URL}/everything?pageSize=${pageSize}&page=${page}&sources=${source}&language=${language}&sortBy=${sortBy}`;
+    let url = `${config.NEWS_API_BASE_URL}/everything?pageSize=${pageSize}&page=${page}&sources=${source}&language=${language}&sortBy=${sortBy}`;
+
+    if(q) {
+      url = `${url}&q=${q}`;
+    }
 
     return axios({
         method: 'get',

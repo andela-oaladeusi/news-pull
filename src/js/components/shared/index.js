@@ -8,6 +8,7 @@ import Nav from './Nav';
 import NewsGrid from './NewsGrid';
 import Pagination from './Pagination';
 import SourceDropDown from './SourceDropDown';
+import Search from './Search';
 
 export {
   Button,
@@ -19,5 +20,6 @@ export {
   Nav,
   NewsGrid,
   Pagination,
-  SourceDropDown
+  SourceDropDown,
+  Search
 }

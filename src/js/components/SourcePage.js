@@ -4,21 +4,25 @@ import { bindActionCreators } from 'redux';
 import queryString from 'query-string';
 
 import { sourceNews } from '../actions';
-import { NewsGrid, LoadingIcon, Pagination } from './shared';
+import { NewsGrid, LoadingIcon, Pagination, Search } from './shared';
 
 class SourcePage extends Component {
   constructor(props) {
     super(props);
-    this.source = props.match.params.source;
+    this.source = 'All';
   }
 
   componentDidMount() {
-    const currentPage = parseInt(this.getQueryObj(this.props.location.search).page, 10);
-    if(currentPage) {
-      this.props.sourceNews({ source: this.source, page: currentPage });
-    } else {
-      this.props.sourceNews({ source: this.source, page: 1 });
-    }
+    const search = this.props.location.search;
+    const currentPage = parseInt(this.getQueryObj(search).page, 10) || 1;
+    const currentQ = this.getQueryObj(search).q || '';
+    const currentFilter = this.getQueryObj(search).filterBy || 'all';
+    const payload = { page: currentPage, q: currentQ, filterBy: currentFilter };
+    this.makeCall(payload);
+  }
+
+  makeCall(payload) {
+    this.props.sourceNews(payload);
   }
   
   getQueryObj(search) {
@@ -26,26 +30,33 @@ class SourcePage extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const nextSource = nextProps.match.params.source;
-    const currentSource = this.props.match.params.source;
-
     const currentPage = parseInt(this.getQueryObj(this.props.location.search).page, 10);
-    const nextPage = parseInt(this.getQueryObj(nextProps.location.search).page, 10);
+    const nextPage = parseInt(this.getQueryObj(nextProps.location.search).page, 10) || 1;
+
+    const currentQ = this.getQueryObj(this.props.location.search).q
+    const nextQ = this.getQueryObj(nextProps.location.search).q
+
+    const currentFilterBy = this.getQueryObj(this.props.location.search).filterBy
+    const nextFilterBy = this.getQueryObj(nextProps.location.search).filterBy
+
+    const search = { page: nextPage, q: nextQ, filterBy: nextFilterBy };
 
     if(nextPage && currentPage && currentPage !== nextPage) {
-      this.props.sourceNews({ source: nextSource, page: nextPage });
+      this.makeCall(search);
     }
-
-    if(nextSource !== currentSource) {
-      this.source = nextSource;
-      this.props.sourceNews({ source: nextSource, page: 1 });
+    if(nextQ !== currentQ) {
+      this.makeCall(search);
+    }
+    if(nextFilterBy !== currentFilterBy) {
+      this.makeCall(search);
     }
   }
 
   render() {
-    const { articles, isFetching, isError } = this.props;
+    const { articles, isFetching, isError, totalCount } = this.props;
    return (
-    <div className="container">
+    <div className="container search-container">
+      <Search />
       { isError ? <div><p>An Error Occured</p></div> : articles.length < 1 || isFetching ?
         <div className="row my-4">
           <LoadingIcon />
@@ -54,7 +65,7 @@ class SourcePage extends Component {
       <div>
         <p>{this.source.toUpperCase()}</p>
         <NewsGrid articles={articles}/>
-        <Pagination />
+        <Pagination totalCount={totalCount} pageSize={20}/>
       </div>
       }
     </div>
@@ -72,7 +83,8 @@ const mapStateToProps = ({ news }) => {
   return {
     articles: news.newsItems,
     isFetching: news.isFetching,
-    isError: news.isError
+    isError: news.isError,
+    totalCount: news.itemsCount
   }
 }
 

@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/api/v1/news/single/:urlId', Scrape.fetchScrapeData);
-app.get('/api/v1/news/sources/:sourceName', FetchNews.fetchSourceNews);
+app.get('/api/v1/news/sources', FetchNews.fetchSourceNews);
 app.get('/api/v1/news/:type/search', FetchNews.fetchSearchResults);
 app.get('/api/v1/news/headlines/', FetchNews.fetchHeadlines);
 
