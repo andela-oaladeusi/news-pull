@@ -17,7 +17,7 @@ const ProjectRoutes = ({ store }) => (
       <Switch>
         <App>
           <Route exact path='/' component={Home}/>
-          <Route exact path='/search' component={SourcePage}/>
+          <Route exact path='/search' component={SearchPage}/>
           <Route exact path='/category/:category' component={Home}/>
           <Route exact path='/sources' component={SourcePage}/>
           <Route path="/news/:url" component={SingleNewPage}/>

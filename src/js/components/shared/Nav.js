@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { CountryDropDown, SourceDropDown } from './';
+import { CountryDropDown, SearchPopOver } from './';
 import { Country, categoryList } from '../../utils';
 
 class Nav extends Component {
@@ -23,15 +23,13 @@ class Nav extends Component {
                   </Link>
                 </li>
               ))}
-              {/*<li className="nav-item news-nav-item">
-                <form className="form-inline my-2 my-lg-0">
-                  <input className="form-control mr-sm-2" type="text" placeholder="Search..."/>
-                </form>
-              </li>*/}
               <li className="nav-item news-nav-item">
                 <Link className="nav-link" to={'/sources'}>All
                   <span className="sr-only">(current)</span>
                 </Link>
+              </li>
+              <li className="nav-item news-nav-item">
+                <SearchPopOver />
               </li>
               {/*<li className="nav-item news-nav-item">
                 <SourceDropDown />

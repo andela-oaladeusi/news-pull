@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 
 export default function setApiKey(newsApiKey) {
 	// axios.defaults.headers.common['X-Api-Key'] = newsApiKey;

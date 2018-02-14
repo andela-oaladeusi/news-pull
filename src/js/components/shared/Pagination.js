@@ -64,7 +64,6 @@ class Pagination extends Component {
   }
 
   render() {
-    console.log(this.state.pagArray);
     const pages = [1, 2, 3, 4, 5];
     return (
       <div className="row row align-items-center justify-content-center">
@@ -73,7 +72,7 @@ class Pagination extends Component {
             <li className={this.state.page > 1 ? "page-item" : "page-item disabled"}>
               <Link className="page-link" to={this.setNewLinkWithPageValue(this.state.page-1)} tabIndex="-1">Previous</Link>
             </li>
-            { this.state.pagArray.map((page, index) => (
+            { pages.map((page, index) => (
               <li className={ page === this.state.page ? "page-item active" : "page-item"} key={index}>
                 <Link className="page-link" to={this.setNewLinkWithPageValue(page)}>{page}<span className="sr-only">(current)</span></Link>
               </li>

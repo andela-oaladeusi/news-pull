@@ -52,7 +52,7 @@ export function fetchNewsHeadlines(category) {
 
 
 export function searchNews(payload) {
-  const url = `/api/v1/news/${payload.type}/search?language=${payload.language}&q=${payload.query}&pageSize=${payload.pageSize}&page=${payload.page}&sortBy=publishedAt,relevancy`;
+  const url = `/api/v1/news/${payload.type}/search?language=${payload.language}&q=${payload.query}&pageSize=${payload.pageSize}&page=${payload.page}&sortBy=publishedAt`;
   return function(dispatch) {
     dispatch(requestNews('loading'));
     dispatch({ type: SET_CURRENT_CATEGORY, newCategory: '' })

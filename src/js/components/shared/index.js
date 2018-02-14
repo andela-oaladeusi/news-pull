@@ -9,6 +9,7 @@ import NewsGrid from './NewsGrid';
 import Pagination from './Pagination';
 import SourceDropDown from './SourceDropDown';
 import Search from './Search';
+import SearchPopOver from './SearchPopOver';
 
 export {
   Button,
@@ -21,5 +22,6 @@ export {
   NewsGrid,
   Pagination,
   SourceDropDown,
-  Search
+  Search,
+  SearchPopOver
 }
