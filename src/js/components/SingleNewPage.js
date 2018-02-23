@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Disqus from 'disqus-react';
 
 import '../../css/newssinglepage.css';
 import { scrapeNew } from '../actions';
@@ -16,6 +17,12 @@ class SingleNewPage extends Component {
   
   render() {
     const { scrapeItem, isFetching, isError } = this.props;
+    const disqusShortname = 'newshouse-1';
+    const disqusConfig = {
+        url: `http://newshouse.herokuapp.com${this.props.location.pathname}`,
+        identifier: this.props.location.pathname.key,
+        title: scrapeItem.title ? scrapeItem.title : null,
+    };
     return (
       <div className="container single-news-page-container">
         {
@@ -37,6 +44,7 @@ class SingleNewPage extends Component {
                 <p className="lead news-content-body" dangerouslySetInnerHTML={{__html: scrapeItem.content}}>
                 </p> 
                 <hr />
+                <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
               </div>
             </div>
           :
