@@ -8,7 +8,8 @@ import defaultImage from '../../../img/default.png';
 const NewsGrid = ({ articles }) => {
   return(
     <div className="row">
-      {articles.map((article, index) => (
+      {articles.map((article, index) => article.url ?
+      (
         <div className="col-lg-4 col-sm-6 headlines-items" key={index}>
           <div className="card h-100">
             <Link to={`/news/${encodeUrl(article.url)}`}><img className="card-img-top headlines-img" src={article.urlToImage? article.urlToImage : defaultImage} alt=""/></Link>
@@ -24,7 +25,9 @@ const NewsGrid = ({ articles }) => {
             </div>
           </div>
         </div>
-      ))}
+      )
+      : null
+      )}
     </div>
   )
 }

@@ -1,7 +1,6 @@
 class Source {
   static allNewsSource() {
     return [
-      { name: 'All', id: 'all' },
       { name: 'ABC News', id: 'abc-news' },
       { name: 'ABC News (AU)', id: 'abc-news-au' },
       { name: 'Aftenposten', id: 'aftenposten' },

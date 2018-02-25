@@ -95,7 +95,7 @@ export function searchNewsPopOver(payload) {
 
 export function sourceNews(payload) {
   const { page, filterBy, q } = payload;
-  let url = `/api/v1/news/sources?pageSize=21&language=en&sortBy=publishedAt&page=${page}`;
+  let url = `/api/v1/news/sources?pageSize=51&language=en&sortBy=publishedAt&page=${page}`;
   if(filterBy && filterBy !== 'all') {
     url = `${url}&sources=${filterBy}`;
   }

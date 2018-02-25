@@ -2,13 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Carousel, LoadingIcon, NewsGrid } from './shared';
+import { LoadingIcon, NewsGrid } from './shared';
 import { fetchNewsHeadlines } from '../actions';
+import { Country } from '../utils';
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { country: 'Nigeria' }
+  }
 
   componentDidMount() {
     const category = this.props.match.params.category
+    this.setCountryState(this.props.newCountry);
     this.props.fetchNewsHeadlines(category);
   }
 
@@ -22,7 +28,17 @@ class Home extends Component {
     if(nextCategory !== currentCategory) {
       this.props.fetchNewsHeadlines(nextCategory);
     } else if(nextCountry !== currentCountry) {
+      this.setCountryState(nextCountry);
       this.props.fetchNewsHeadlines(currentCategory);
+    }
+  }
+
+  setCountryState(newCountry) {
+    const countries = Country.allCountry();
+    for (let i = 0; i < countries.length; i++) {
+      if (countries[i].id === newCountry) {
+        this.setState({ country: countries[i].name });
+      }
     }
   }
 
@@ -36,9 +52,12 @@ class Home extends Component {
           </div>
           :
           <div>
-            <div className="row my-4">
+            <br/>
+            <p>{this.state.country} News Headlines</p>
+            <hr/>
+            {/*<div className="row my-4">
               <Carousel article={articles[0]} />
-            </div>
+            </div>*/}
             <div className="row">
               <NewsGrid articles={articles}/>
             </div>

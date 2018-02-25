@@ -5,19 +5,23 @@ import queryString from 'query-string';
 
 import { sourceNews } from '../actions';
 import { NewsGrid, LoadingIcon, Pagination, Search } from './shared';
+import { Source } from '../utils';
 
 class SourcePage extends Component {
   constructor(props) {
     super(props);
-    this.source = 'All';
+    this.state = { source: 'All' };
   }
 
   componentDidMount() {
     const search = this.props.location.search;
     const currentPage = parseInt(this.getQueryObj(search).page, 10) || 1;
     const currentQ = this.getQueryObj(search).q || '';
-    const currentFilter = this.getQueryObj(search).filterBy || 'all';
+    const currentFilter = this.getQueryObj(search).filterBy || 'abc-news';
     const payload = { page: currentPage, q: currentQ, filterBy: currentFilter };
+    
+    this.setFilterState(currentFilter);
+    
     this.makeCall(payload);
   }
 
@@ -48,7 +52,18 @@ class SourcePage extends Component {
       this.makeCall(search);
     }
     if(nextFilterBy !== currentFilterBy) {
+      this.setFilterState(nextFilterBy);
       this.makeCall(search);
+    }
+  }
+
+  setFilterState(by) {
+    const sources = Source.allNewsSource();
+    for (let i = 0; i < sources.length; i++) {
+      if (sources[i].id === by) {
+        this.setState({ source: sources[i].name });
+        break;
+      }
     }
   }
 
@@ -63,7 +78,7 @@ class SourcePage extends Component {
         </div>
         :
       <div>
-        <p>{this.source.toUpperCase()}</p>
+        <p>{this.state.source.toUpperCase()} News</p>
         <NewsGrid articles={articles}/>
         <Pagination totalCount={totalCount} pageSize={20}/>
       </div>

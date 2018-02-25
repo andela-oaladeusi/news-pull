@@ -13,8 +13,8 @@ class Search extends Component {
       dropdownOpen: false,
       show: false,
       filterBy: {
-        id: 'all',
-        name: 'All'
+        id: 'abc-news',
+        name: 'ABC News'
       }
     }
     this.queryObj = this.getQueryObj(props.location.search);
@@ -27,6 +27,16 @@ class Search extends Component {
   
   componentDidMount() {
     let currentQ = this.getQueryObj(this.props.location.search).q;
+    const filterBy = this.getQueryObj(this.props.location.search).filterBy;
+    if (filterBy) {
+      const sources = Source.allNewsSource();
+      for (let i = 0; i < sources.length; i++) {
+        if (sources[i].id === filterBy) {
+          this.setState({ filterBy: { id: sources[i].id, name: sources[i].name } })
+          break;
+        }
+      }
+    }
     if(currentQ && currentQ.trim().length !== 0) {
     this.setState({ query: currentQ });
     }
