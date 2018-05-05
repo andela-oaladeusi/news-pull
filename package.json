@@ -25,6 +25,7 @@
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.0",
+    "react-share": "^2.1.1",
     "react-ultimate-pagination": "^1.2.0",
     "react-ultimate-pagination-bootstrap-4": "^1.1.0",
     "reactstrap": "next",

@@ -8,7 +8,7 @@ import storeConfig from './js/store';
 import { setAxiosDefault } from './js/utils';
 
 const store = storeConfig();
-setAxiosDefault("28f4078c0b944c5c8947a58651df6f1d");
+setAxiosDefault("");
 
 ReactDOM.render((
     <ProjectRoutes store={store}/>
