@@ -2,4 +2,52 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  padding-top: 20px;
+}
+
+.headlines-items {
+  padding-bottom: 20px;
+}
+
+.headlines-img {
+  height: 235px;
+}
+
+.news-nav-item {
+  margin-left: 10px;
+}
+
+.div-nav {
+  padding-top: 100px;
+}
+
+.search-container {
+  padding-top: 50px;
+}
+
+.second {
+  padding-top: 40px;
+}
+
+.dropdown-menu {
+   max-height: 200px;
+   overflow: scroll;
+}
+
+.list-group {
+  max-height: 300px;
+  overflow: scroll;
+}
+
+.carousel-img {
+  height: 75%;
+}
+
+.search-box {
+  margin-bottom: 40px;
+}
+@media (min-width: 992px) {
+  body {
+    padding-top: 20px;
+  }
 }

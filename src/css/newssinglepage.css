@@ -1,0 +1,15 @@
+.single-news-page-container {
+  padding-top: 25px;
+}
+img {
+  height: 300px;
+  width: 500px;
+}
+video {
+  height: 300px;
+  width: 500px;
+}
+.news-content-body {
+  text-align: left;
+  font-weight: normal !important
+}

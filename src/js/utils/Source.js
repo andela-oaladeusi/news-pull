@@ -1,0 +1,46 @@
+class Source {
+  static allNewsSource() {
+    return [
+      { name: 'ABC News', id: 'abc-news' },
+      { name: 'ABC News (AU)', id: 'abc-news-au' },
+      { name: 'Aftenposten', id: 'aftenposten' },
+      { name: 'Al Jazeera English', id: 'al-jazeera-english' },
+      { name: 'ANSA.it', id: 'ansa' },
+      { name: 'Argaam', id: 'argaam' },
+      { name: 'Ars Technica', id: 'ars-technica' },
+      { name: 'Ary News', id: 'ary-news' },
+      { name: 'Associated Press', id: 'associated-press' },
+      { name: 'Axios', id: 'axios' },
+      { name: 'BBC News', id: 'bbc-news' },
+      { name: 'BBC Sport', id: 'bbc-sport' },
+      { name: 'Bussiness Insider', id: 'bussiness-insider' },
+      { name: 'Bussiness Insider UK', id: 'bussiness-insider-uk' },
+      { name: 'CBC News', id: 'cbc-news' },
+      { name: 'CNBC', id: 'cnbc' },
+      { name: 'CNN', id: 'cnn' },
+      { name: 'Crypto Coin News', id: 'crypto-coin-news' },
+      { name: 'Daily Mail', id: 'daily-mail' },
+      { name: 'Focus', id: 'focus' },
+      { name: 'Fortune', id: 'fortune' },
+      { name: 'Fox News', id: 'fox-news' },
+      { name: 'Fox Sports', id: 'fox-sports' },
+      { name: 'Google News', id: 'google-news' },
+      { name: 'Hacker News', id: 'hacker-news' },
+      { name: 'Independent', id: 'independent' },
+      { name: 'Mirror', id: 'mirror' },
+      { name: 'Metro', id: 'metro' },
+      { name: 'MSNBC', id: 'msnbc' },
+      { name: 'NBC News', id: 'nbc-news' },
+      { name: 'News24', id: 'news24' },
+      { name: 'Reuters', id: 'Reuters' },
+      { name: 'TalkSport', id: 'talksport' },
+      { name: 'TechCrunch', id: 'techcrunch' },
+      { name: 'Time', id: 'time' },
+      { name: 'The Sport Bible', id: 'the-sport-bible' },
+      { name: 'The Hill', id: 'the-hill' },
+      { name: 'The Verge', id: 'the-verge' },
+    ]
+  }
+}
+
+export default Source;

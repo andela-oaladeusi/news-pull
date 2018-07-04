@@ -1,21 +1,21 @@
-import { REQUEST_GET, RECEIVE_GET } from '../actions/Types';
+import { SET_CURRENT_COUNTRY, SET_CURRENT_CATEGORY } from '../actions/Types';
+import { Country } from '../utils';
 
 const initialState =
   {
-    isFetching: false,
-    items: []
+    newCountry: Country.getCountry(),
+    newCategory: ''
   }
 
 const home = (state = initialState, action) => {
   switch (action.type) {
-    case REQUEST_GET:
+    case SET_CURRENT_COUNTRY:
       return Object.assign({}, state, {
-        isFetching: true,
+        newCountry: action.newCountry,
       })
-    case RECEIVE_GET:
+    case SET_CURRENT_CATEGORY:
       return Object.assign({}, state, {
-        isFetching: false,
-        items: action.data,
+        newCategory: action.newCategory,
       })
     default:
       return state
